@@ -129,44 +129,57 @@ SHAPE get_target_shape(int dr, int dc) { return EMPTY_TARGET; }
 SHAPE get_target_shape_left(int dr, int dc) { return EMPTY_TARGET_LEFT; }
 SHAPE get_target_shape_right(int dr, int dc) { return EMPTY_TARGET_RIGHT; }
 
+int is_inside_map(int rows, int columns, int r, int c) {
+  return r >= 0 && r < rows && c >= 0 && c < columns;
+}
+
 void get_map_cell(MAP map, int rows, int columns, int cell_r, int cell_c,
                   int player_r, int player_c, int player_dr, int player_dc,
                   int *fg_color, int *bg_color, SHAPE *shape) {
   int empty = is_empty(map, rows, columns, cell_r, cell_c);
+  int inside = is_inside_map(rows, columns, cell_r, cell_c);
+  int target_inside =
+      is_inside_map(rows, columns, player_r + player_dr, player_c + player_dc);
+
+  int inside_bg_color = 22;
+  int outside_bg_color = 0;
+
+  int actual_bg_color = inside ? inside_bg_color : outside_bg_color;
+
   if (cell_r == player_r - 1 && cell_c == player_c) {
     *fg_color = 179;
-    *bg_color = empty ? 22 : 243;
+    *bg_color = empty ? actual_bg_color : 243;
     *shape = AVATAR_BIG_HEAD;
   } else if (cell_r == player_r && cell_c == player_c) {
     *fg_color = 165;
-    *bg_color = 22;
+    *bg_color = actual_bg_color;
     *shape = AVATAR_BIG_BODY;
   } else if (cell_r == player_r + player_dr && cell_c == player_c + player_dc) {
     // Target
-    *fg_color = 255;
-    *bg_color = empty ? 22 : 243;
+    *fg_color = target_inside ? 255 : 1;
+    *bg_color = empty ? actual_bg_color : 243;
     *shape = get_target_shape(player_dr, player_dc);
   } else if (player_dr == -1 && player_dc == 0 &&
              cell_r == player_r + player_dr &&
              cell_c == player_c + player_dc - 1) {
     // Target behind head, left
-    *fg_color = 255;
-    *bg_color = empty ? 22 : 243;
+    *fg_color = target_inside ? 255 : 1;
+    *bg_color = empty ? actual_bg_color : 243;
     *shape = get_target_shape_left(player_dr, player_dc);
   } else if (player_dr == -1 && player_dc == 0 &&
              cell_r == player_r + player_dr &&
              cell_c == player_c + player_dc + 1) {
     // Target behind head, right
-    *fg_color = 255;
-    *bg_color = empty ? 22 : 243;
+    *fg_color = target_inside ? 255 : 1;
+    *bg_color = empty ? actual_bg_color : 243;
     *shape = get_target_shape_right(player_dr, player_dc);
   } else if (empty) {
     *fg_color = 243;
-    *bg_color = 22;
+    *bg_color = actual_bg_color;
     *shape = EMPTY;
   } else {
     *fg_color = 243;
-    *bg_color = 22;
+    *bg_color = actual_bg_color;
     *shape = BLOCK;
   }
 }
