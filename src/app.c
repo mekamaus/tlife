@@ -3,29 +3,37 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-const int ROWS = 20;
-const int COLUMNS = 20;
-int MAP[ROWS][COLUMNS] = {
-    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+#define CELL char *
+#define SHAPE char *
+#define SHAPE_HALF char *
+#define SCREEN char *
+#define MAP int *
+
+const char HIDE_CURSOR_COMMAND[] = "tput civis";
+
+const int MAIN_MAP_ROWS = 20;
+const int MAIN_MAP_COLUMNS = 20;
+int MAIN_MAP[MAIN_MAP_ROWS * MAIN_MAP_COLUMNS] = {
+    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, //
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, //
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, //
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, //
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, //
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
 };
 
 char readkey() {
@@ -39,8 +47,8 @@ char readkey() {
   return c;
 }
 
-int is_empty(int r, int c) {
-  return r < 0 || r >= ROWS || c < 0 || c >= COLUMNS || !MAP[r][c];
+int is_empty(MAP map, int rows, int columns, int r, int c) {
+  return r < 0 || r >= rows || c < 0 || c >= columns || !map[columns * r + c];
 }
 
 const char BG = '4';
@@ -51,171 +59,249 @@ const char RED = '1';
 const char GREEN = '2';
 const char WHITE = '7';
 
+const CELL EMPTY_CELL = "\033[38;5;255m\033[48;5;000m";
+
+const int COLOR_LENGTH = 3;
+const int COLORS_LENGTH = 22;
+const int FG_COLOR_INDEX = 7;
+const int BG_COLOR_INDEX = 18;
+const int SHAPE_HALF_LENGTH = 3;
+const int CHARS_PER_CELL = 2;
+const int CELL_LENGTH = COLORS_LENGTH + CHARS_PER_CELL * SHAPE_HALF_LENGTH;
+
 char BLOCK[7] = "██";
+char EMPTY[7] = "  \b\b  ";
 
 char AVATAR_BIG[2][7] = {
     "",
     "▜▛",
 };
 
-int main() {
-  system("tput civis");
+SHAPE AVATAR_BIG_HEAD = AVATAR_BIG[0];
+SHAPE AVATAR_BIG_BODY = AVATAR_BIG[1];
 
-  int pr = 2;
-  int pc = 2;
-  int frame = 0;
-  int moved = 1;
+// private methods
 
-  const int BG_INDEX = 5;
-  const int FG_INDEX = 8;
-  const int COLOR_LENGTH = 10;
-  const int CHAR_LENGTH = 3;
-  const int CHARS_PER_CELL = 2;
-  const int CELL_LENGTH = COLOR_LENGTH + CHARS_PER_CELL * CHAR_LENGTH;
+void set_shape_half(SCREEN screen, int index, SHAPE_HALF ch) {
+  for (int i = 0; i < SHAPE_HALF_LENGTH; ++i) {
+    screen[index + i] = ch[i];
+  }
+}
 
-  struct winsize size;
-  ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-  int rows = size.ws_row;
-  int columns = size.ws_col / 2;
+void set_shape(SCREEN screen, int index, SHAPE shape) {
+  set_shape_half(screen, index + COLORS_LENGTH, shape);
+  set_shape_half(screen, index + COLORS_LENGTH + SHAPE_HALF_LENGTH,
+                 shape + SHAPE_HALF_LENGTH);
+}
 
+void set_color(SCREEN screen, int index, int color_index, int color) {
+  for (int i = 0; i < COLOR_LENGTH; ++i) {
+    screen[index + color_index + COLOR_LENGTH - i - 1] =
+        (char)('0' + color % 10);
+    color /= 10;
+  }
+}
+
+void set_fg_color(SCREEN screen, int index, int color) {
+  set_color(screen, index, FG_COLOR_INDEX, color);
+}
+
+void set_bg_color(SCREEN screen, int index, int color) {
+  set_color(screen, index, BG_COLOR_INDEX, color);
+}
+
+// end private methods
+//
+char ARROW_DOWN[] = "";
+char ARROW_DOWN_RIGHT[] = " ";
+char ARROW_RIGHT[] = " ";
+char ARROW_UP_RIGHT[] = " ";
+char ARROW_UP[] = "";
+char ARROW_UP_LEFT[] = " ";
+char ARROW_LEFT[] = " ";
+char ARROW_DOWN_LEFT[] = " ";
+char NO_ARROW[] = "  \b\b  ";
+
+SHAPE get_arrow_shape(int dr, int dc) {
+  if (dr > 0 && dc == 0) {
+    return ARROW_DOWN;
+  } else if (dr > 0 && dc > 0) {
+    return ARROW_DOWN_RIGHT;
+  } else if (dr == 0 && dc > 0) {
+    return ARROW_RIGHT;
+  } else if (dr < 0 && dc > 0) {
+    return ARROW_UP_RIGHT;
+  } else if (dr < 0 && dc == 0) {
+    return ARROW_UP;
+  } else if (dr < 0 && dc < 0) {
+    return ARROW_UP_LEFT;
+  } else if (dr == 0 && dc < 0) {
+    return ARROW_LEFT;
+  } else if (dr > 0 && dc < 0) {
+    return ARROW_DOWN_LEFT;
+  } else {
+    return NO_ARROW;
+  }
+}
+
+void get_map_cell(MAP map, int rows, int columns, int cell_r, int cell_c,
+                  int player_r, int player_c, int player_dr, int player_dc,
+                  int *fg_color, int *bg_color, SHAPE *shape) {
+  int empty = is_empty(map, rows, columns, cell_r, cell_c);
+  if (cell_r == player_r - 1 && cell_c == player_c) {
+    *fg_color = 179;
+    *bg_color = empty ? 22 : 243;
+    *shape = AVATAR_BIG_HEAD;
+  } else if (cell_r == player_r && cell_c == player_c) {
+    *fg_color = 165;
+    *bg_color = 22;
+    *shape = AVATAR_BIG_BODY;
+  } /*else if (cell_r == player_r + player_dr && cell_c == player_c + player_dc)
+  { *fg_color = 255; *bg_color = 22; *shape = get_arrow_shape(player_dr,
+  player_dc);
+  } */
+  else if (empty) {
+    *fg_color = 243;
+    *bg_color = 22;
+    *shape = EMPTY;
+  } else {
+    *fg_color = 243;
+    *bg_color = 22;
+    *shape = BLOCK;
+  }
+}
+
+void set_screen_cell(SCREEN screen, int rows, int columns, int i, int j,
+                     int fg_color, int bg_color, SHAPE shape) {
+  int row_length = CELL_LENGTH * columns + 1;
+  int cell_start = row_length * i + CELL_LENGTH * j;
+  set_fg_color(screen, cell_start, fg_color);
+  set_bg_color(screen, cell_start, bg_color);
+  set_shape(screen, cell_start, shape);
+}
+
+SCREEN create_screen(int rows, int columns) {
   int row_length = CELL_LENGTH * columns + 1;
 
-  char *screen;
+  SCREEN screen = malloc(rows * row_length);
 
-  screen = malloc(rows * row_length);
-
-  const int COLOR_LENGTH = 3;
-  const int FG_INDEX = 0;
-  // rows * (2 * columns + 1) - 1
   for (int i = 0; i < rows; ++i) {
     int row_start = row_length * i;
     for (int j = 0; j < columns; ++j) {
       int cell_start = row_start + CELL_LENGTH * j;
-      screen[cell_start] = '\033';
-      screen[cell_start + 1] = '[';
-      screen[cell_start + 2] = '4';
-      screen[cell_start + 3] = '8';
-      screen[cell_start + 4] = ';';
-      screen[cell_start + 5] = '5';
-      screen[cell_start + 6] = ';';
-      screen[cell_start + 7] = '0';
-      screen[cell_start + 8] = '2';
-      screen[cell_start + 9] = '2';
-      screen[cell_start + 10] = 'm';
-      screen[cell_start + 11] = '\033';
-      screen[cell_start + 12] = '3';
-      screen[cell_start + 13] = '8';
-      screen[cell_start + 14] = ';';
-      screen[cell_start + 15] = '5';
-      screen[cell_start + 16] = ';';
-      screen[cell_start + 17] = '2';
-      screen[cell_start + 18] = '3';
-      screen[cell_start + 19] = '5';
-      screen[cell_start + 20] = 'm';
+      for (int k = 0; k < CELL_LENGTH; ++k) {
+        screen[cell_start + k] = EMPTY_CELL[k];
+      }
     }
     screen[row_start + row_length - 1] = (i == rows - 1) ? '\0' : '\n';
   }
 
+  return screen;
+}
+
+void resize_screen(SCREEN *screen, int rows, int columns) {
+  free(*screen);
+  *screen = create_screen(rows, columns);
+}
+
+void render_screen_map(SCREEN screen, int screen_rows, int screen_columns,
+                       MAP map, int map_rows, int map_columns, int offset_r,
+                       int offset_c, int player_r, int player_c, int player_dr,
+                       int player_dc) {
+  for (int screen_r = 0; screen_r < screen_rows; ++screen_r) {
+    for (int screen_c = 0; screen_c < screen_columns; ++screen_c) {
+      int cell_r = screen_r - offset_r;
+      int cell_c = screen_c - offset_c;
+
+      int fg_color;
+      int bg_color;
+      SHAPE shape;
+
+      get_map_cell(map, map_rows, map_columns, cell_r, cell_c, player_r,
+                   player_c, player_dr, player_dc, &fg_color, &bg_color,
+                   &shape);
+
+      set_screen_cell(screen, screen_rows, screen_columns, screen_r, screen_c,
+                      fg_color, bg_color, shape);
+    }
+  }
+}
+
+int move_player(MAP map, int *r, int *c, int *dr, int *dc) {
+  char key = readkey();
+  if (key == 'h') {
+    *dr = 0;
+    *dc = -1;
+  } else if (key == 'j') {
+    *dr = 1;
+    *dc = 0;
+  } else if (key == 'k') {
+    *dr = -1;
+    *dc = 0;
+  } else if (key == 'l') {
+    *dr = 0;
+    *dc = 1;
+  } else {
+    return 0;
+  }
+
+  if (is_empty(MAIN_MAP, MAIN_MAP_ROWS, MAIN_MAP_COLUMNS, *r + *dr, *c + *dc)) {
+    *r += *dr;
+    *c += *dc;
+  }
+
+  return 1;
+}
+
+int resize_window(int *rows, int *columns) {
+  struct winsize size;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+  if (size.ws_row != *rows || size.ws_col / 2 != *columns) {
+    *rows = size.ws_row;
+    *columns = size.ws_col / 2;
+    return 1;
+  }
+  return 0;
+}
+
+int main() {
+  system(HIDE_CURSOR_COMMAND);
+
+  int player_r = 2;
+  int player_c = 2;
+  int player_dr = 0;
+  int player_dc = 0;
+
+  int moved = 1;
+
+  int rows = 0;
+  int columns = 0;
+  int resized = resize_window(&rows, &columns);
+
+  int row_length = CELL_LENGTH * columns + 1;
+
+  SCREEN screen = NULL;
+
   while (1) {
-    if (moved) {
-      struct winsize size;
-      ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-      int rows = size.ws_row;
-      int columns = size.ws_col / 2;
+    if (moved || resized) {
+      resize_screen(&screen, rows, columns);
 
       int center_r = rows / 2;
       int center_c = columns / 2;
 
-      ++frame;
+      int offset_r = center_r - player_r;
+      int offset_c = center_c - player_c;
 
-      for (int i = 0; i < rows; ++i) {
-        int row_start = row_length * i;
-        for (int j = 0; j < columns; ++j) {
-          int cell_start = row_start + CELL_LENGTH * j;
-          int char_start = cell_start + COLOR_LENGTH;
-          int a1 = char_start;
-          int a2 = char_start + 1;
-          int a3 = char_start + 2;
-          int b1 = char_start + 3;
-          int b2 = char_start + 4;
-          int b3 = char_start + 5;
-
-          screen[a1] = ' ';
-          screen[a2] = '\b';
-          screen[a3] = ' ';
-          screen[b1] = ' ';
-          screen[b2] = '\b';
-          screen[b3] = ' ';
-
-          int r = i - center_r + pr;
-          int c = j - center_c + pc;
-          int empty = is_empty(r, c);
-
-          if (i == center_r - 1 && j == center_c) {
-            screen[cell_start + BG_INDEX] = empty ? BLACK : WHITE;
-            screen[cell_start + FG_INDEX] = GREEN;
-            screen[a1] = AVATAR_BIG[0][0];
-            screen[a2] = AVATAR_BIG[0][1];
-            screen[a3] = AVATAR_BIG[0][2];
-            screen[b1] = AVATAR_BIG[0][3];
-            screen[b2] = AVATAR_BIG[0][4];
-            screen[b3] = AVATAR_BIG[0][5];
-          } else if (i == center_r && j == center_c) {
-            screen[cell_start + FG_INDEX] = BLACK;
-            screen[cell_start + FG_INDEX] = GREEN;
-            screen[a1] = AVATAR_BIG[1][0];
-            screen[a2] = AVATAR_BIG[1][1];
-            screen[a3] = AVATAR_BIG[1][2];
-            screen[b1] = AVATAR_BIG[1][3];
-            screen[b2] = AVATAR_BIG[1][4];
-            screen[b3] = AVATAR_BIG[1][5];
-          } else if (!empty) {
-            screen[cell_start + BG_INDEX] = BLACK;
-            screen[cell_start + FG_INDEX] = WHITE;
-            screen[a1] = BLOCK[0];
-            screen[a2] = BLOCK[1];
-            screen[a3] = BLOCK[2];
-            screen[b1] = BLOCK[3];
-            screen[b2] = BLOCK[4];
-            screen[b3] = BLOCK[5];
-          }
-        }
-      }
+      render_screen_map(screen, rows, columns, MAIN_MAP, MAIN_MAP_ROWS,
+                        MAIN_MAP_COLUMNS, offset_r, offset_c, player_r,
+                        player_c, player_dr, player_dc);
 
       printf("\e[0;0H%s", screen);
     }
 
-    moved = 0;
-    switch (readkey()) {
-    case 'h':
-    case 'H':
-      if (is_empty(pr, pc - 1)) {
-        --pc;
-        moved = 1;
-      }
-      break;
-    case 'j':
-    case 'J':
-      if (is_empty(pr + 1, pc)) {
-        ++pr;
-        moved = 1;
-      }
-      break;
-    case 'k':
-    case 'K':
-      if (is_empty(pr - 1, pc)) {
-        --pr;
-        moved = 1;
-      }
-      break;
-    case 'l':
-    case 'L':
-      if (is_empty(pr, pc + 1)) {
-        ++pc;
-        moved = 1;
-      }
-      break;
-    }
+    moved = move_player(MAIN_MAP, &player_r, &player_c, &player_dr, &player_dc);
+
+    resized = resize_window(&rows, &columns);
   }
 
   free(screen);
