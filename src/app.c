@@ -121,28 +121,13 @@ char ARROW_UP_LEFT[] = " ";
 char ARROW_LEFT[] = " ";
 char ARROW_DOWN_LEFT[] = " ";
 char NO_ARROW[] = "  \b\b  ";
+char EMPTY_TARGET[] = "";
+char EMPTY_TARGET_LEFT[] = " \b ";
+char EMPTY_TARGET_RIGHT[] = " \b ";
 
-SHAPE get_arrow_shape(int dr, int dc) {
-  if (dr > 0 && dc == 0) {
-    return ARROW_DOWN;
-  } else if (dr > 0 && dc > 0) {
-    return ARROW_DOWN_RIGHT;
-  } else if (dr == 0 && dc > 0) {
-    return ARROW_RIGHT;
-  } else if (dr < 0 && dc > 0) {
-    return ARROW_UP_RIGHT;
-  } else if (dr < 0 && dc == 0) {
-    return ARROW_UP;
-  } else if (dr < 0 && dc < 0) {
-    return ARROW_UP_LEFT;
-  } else if (dr == 0 && dc < 0) {
-    return ARROW_LEFT;
-  } else if (dr > 0 && dc < 0) {
-    return ARROW_DOWN_LEFT;
-  } else {
-    return NO_ARROW;
-  }
-}
+SHAPE get_target_shape(int dr, int dc) { return EMPTY_TARGET; }
+SHAPE get_target_shape_left(int dr, int dc) { return EMPTY_TARGET_LEFT; }
+SHAPE get_target_shape_right(int dr, int dc) { return EMPTY_TARGET_RIGHT; }
 
 void get_map_cell(MAP map, int rows, int columns, int cell_r, int cell_c,
                   int player_r, int player_c, int player_dr, int player_dc,
@@ -156,11 +141,26 @@ void get_map_cell(MAP map, int rows, int columns, int cell_r, int cell_c,
     *fg_color = 165;
     *bg_color = 22;
     *shape = AVATAR_BIG_BODY;
-  } /*else if (cell_r == player_r + player_dr && cell_c == player_c + player_dc)
-  { *fg_color = 255; *bg_color = 22; *shape = get_arrow_shape(player_dr,
-  player_dc);
-  } */
-  else if (empty) {
+  } else if (cell_r == player_r + player_dr && cell_c == player_c + player_dc) {
+    // Target
+    *fg_color = 255;
+    *bg_color = empty ? 22 : 243;
+    *shape = get_target_shape(player_dr, player_dc);
+  } else if (player_dr == -1 && player_dc == 0 &&
+             cell_r == player_r + player_dr &&
+             cell_c == player_c + player_dc - 1) {
+    // Target behind head, left
+    *fg_color = 255;
+    *bg_color = empty ? 22 : 243;
+    *shape = get_target_shape_left(player_dr, player_dc);
+  } else if (player_dr == -1 && player_dc == 0 &&
+             cell_r == player_r + player_dr &&
+             cell_c == player_c + player_dc + 1) {
+    // Target behind head, right
+    *fg_color = 255;
+    *bg_color = empty ? 22 : 243;
+    *shape = get_target_shape_right(player_dr, player_dc);
+  } else if (empty) {
     *fg_color = 243;
     *bg_color = 22;
     *shape = EMPTY;
@@ -227,25 +227,43 @@ void render_screen_map(SCREEN screen, int screen_rows, int screen_columns,
   }
 }
 
-int move_player(MAP map, int *r, int *c, int *dr, int *dc) {
+void set_map_cell(MAP map, int rows, int columns, int r, int c, int value) {
+  if (r < 0 || r >= rows || c < 0 || c >= columns) {
+    return;
+  }
+
+  map[columns * r + c] = value;
+}
+
+int control_player(MAP map, int rows, int columns, int *r, int *c, int *dr,
+                   int *dc) {
   char key = readkey();
+  int moving = 0;
   if (key == 'h') {
     *dr = 0;
     *dc = -1;
+    moving = 1;
   } else if (key == 'j') {
     *dr = 1;
     *dc = 0;
+    moving = 1;
   } else if (key == 'k') {
     *dr = -1;
     *dc = 0;
+    moving = 1;
   } else if (key == 'l') {
     *dr = 0;
     *dc = 1;
+    moving = 1;
+  } else if (key == 'x') {
+    set_map_cell(map, rows, columns, *r + *dr, *c + *dc, 0);
+  } else if (key == 'a') {
+    set_map_cell(map, rows, columns, *r + *dr, *c + *dc, 1);
   } else {
     return 0;
   }
 
-  if (is_empty(MAIN_MAP, MAIN_MAP_ROWS, MAIN_MAP_COLUMNS, *r + *dr, *c + *dc)) {
+  if (moving && is_empty(map, rows, columns, *r + *dr, *c + *dc)) {
     *r += *dr;
     *c += *dc;
   }
@@ -272,7 +290,7 @@ int main() {
   int player_dr = 0;
   int player_dc = 0;
 
-  int moved = 1;
+  int changed = 1;
 
   int rows = 0;
   int columns = 0;
@@ -283,7 +301,7 @@ int main() {
   SCREEN screen = NULL;
 
   while (1) {
-    if (moved || resized) {
+    if (changed || resized) {
       resize_screen(&screen, rows, columns);
 
       int center_r = rows / 2;
@@ -299,7 +317,8 @@ int main() {
       printf("\e[0;0H%s", screen);
     }
 
-    moved = move_player(MAIN_MAP, &player_r, &player_c, &player_dr, &player_dc);
+    changed = control_player(MAIN_MAP, MAIN_MAP_ROWS, MAIN_MAP_COLUMNS,
+                             &player_r, &player_c, &player_dr, &player_dc);
 
     resized = resize_window(&rows, &columns);
   }
