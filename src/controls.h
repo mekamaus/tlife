@@ -1,19 +1,7 @@
-#define CONTROLS_LEFT 'h'
-#define CONTROLS_DOWN 'j'
-#define CONTROLS_UP 'k'
-#define CONTROLS_RIGHT 'l'
+#pragma once
 
-void start_controls() {
-  // TODO: start a thread that reads controls
-}
+typedef unsigned char Key;
 
-char readkey() {
-  FILE *fp = popen("read -n 1 -r -s key; echo $key", "r");
-  if (fp == NULL) {
-    exit(1);
-  }
-  char c = fgetc(fp);
-  pclose(fp);
+void start_controls();
 
-  return c;
-}
+char readkey();

@@ -1,9 +1,10 @@
+#include "map_io.h"
+#include "screen.h"
+#include "screen_renderer.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-
-#include "screen.h"
 
 const char HIDE_CURSOR_COMMAND[] = "tput civis";
 
@@ -29,8 +30,8 @@ int main() {
   int player_dr = 1;
   int player_dc = 0;
 
-  FILENAME player_file = "/tmp/player";
-  FILENAME map_file = "/tmp/map";
+  Filename player_file = "/tmp/player";
+  Filename map_file = "/tmp/map";
 
   read_player(player_file, &player_r, &player_c, &player_dr, &player_dc);
 
@@ -38,15 +39,13 @@ int main() {
   int columns = 0;
   int resized = resize_window(&rows, &columns);
 
-  int row_length = CELL_LENGTH * columns + 1;
+  Screen screen = NULL;
 
-  SCREEN screen = NULL;
-
-  const DIM map_rows = 20;
-  const DIM map_columns = 20;
+  const Dim map_rows = 20;
+  const Dim map_columns = 20;
   int map[map_rows * map_columns] = {0};
 
-  read_map(map_file, map);
+  read_map(map_file, map, map_rows, map_columns);
 
   start_controls();
 
@@ -60,7 +59,7 @@ int main() {
       int offset_r = center_r - player_r;
       int offset_c = center_c - player_c;
 
-      render_screen_map(
+      render_screen(
           // screen
           screen, rows, columns,
           // map
@@ -70,7 +69,7 @@ int main() {
           // player
           player_r, player_c, player_dr, player_dc);
 
-      printf("\e[0;0H%s", screen);
+      printf("\e[0;0H%s", (char *)screen);
     }
 
     if (player_moved) {
@@ -78,7 +77,7 @@ int main() {
     }
 
     if (map_changed) {
-      write_map(map_file, map);
+      write_map(map_file, map, map_rows, map_columns);
     }
 
     control_player(

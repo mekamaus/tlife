@@ -1,9 +1,11 @@
-#define COLOR int
+#pragma once
 
-#define DARK_GREEN 22
-#define BLACK 0
-#define LIGHT_GRAY 243
-#define PURPLE 165
-#define RED 1
-#define WHITE 255
-#define LIGHT_OLIVE 136
+typedef unsigned char Color;
+
+extern const Color BLACK;
+extern const Color RED;
+extern const Color DARK_GREEN;
+extern const Color LIGHT_OLIVE;
+extern const Color PURPLE;
+extern const Color LIGHT_GRAY;
+extern const Color WHITE;

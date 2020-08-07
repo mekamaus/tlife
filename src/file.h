@@ -1,1 +1,3 @@
-#define FILENAME char *
+#pragma once
+
+typedef char *Filename;
