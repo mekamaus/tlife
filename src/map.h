@@ -1,24 +1,20 @@
 #pragma once
 
 #include "block.h"
-#include "color.h"
+#include "bool.h"
 #include "file.h"
-#include "scalar.h"
+#include "vector.h"
 #include <stdio.h>
 
 // A collection of elements in a grid arrangement.
-typedef int *Map;
+typedef Block *Map;
 
 // Returns true if the block at the given row and column is zero, false
 // otherwise.
-int is_map_cell_empty(Map map, Dim rows, Dim columns, Dim r, Dim c);
-
-// Returns true if the given row and column is inside the map boundaries, false
-// otherwise.
-int is_inside_map(Dim rows, Dim columns, Pos r, Pos c);
+bool is_map_block_empty(Map map, const Dim2 *size, const Pos2 *pos);
 
 // Returns the block at the given row and column.
-Block get_map_block(Map map, Dim rows, Dim columns, Dim r, Dim c);
+Block get_map_block(Map map, const Dim2 *size, const Pos2 *pos);
 
 // Sets the block at the given row and column.
-void set_map_block(Map map, Dim rows, Dim columns, Dim r, Dim c, Block value);
+void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value);

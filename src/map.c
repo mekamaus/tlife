@@ -1,25 +1,25 @@
 #include "map.h"
+#include "vector.h"
 
-int is_map_cell_empty(Map map, Dim rows, Dim columns, Dim r, Dim c) {
-  return r < 0 || r >= rows || c < 0 || c >= columns || !map[columns * r + c];
+const Block OUTSIDE_BLOCK = 1;
+
+bool is_inside_map(const Dim2 *size, const Pos2 *pos);
+
+bool is_map_block_empty(Map map, const Dim2 *size, const Pos2 *pos) {
+  return !is_inside_map(size, pos) || !map[size->x * pos->y + pos->x];
 }
 
-int is_inside_map(Dim rows, Dim columns, Pos r, Pos c) {
-  return r >= 0 && r < rows && c >= 0 && c < columns;
+Block get_map_block(Map map, const Dim2 *size, const Pos2 *pos) {
+  return is_inside_map(size, pos) ? map[size->x * pos->y + pos->x]
+                                  : OUTSIDE_BLOCK;
 }
 
-Block get_map_block(Map map, Dim rows, Dim columns, Dim r, Dim c) {
-  if (r < 0 || r >= rows || c < 0 || c >= columns) {
-    return BLOCK_EMPTY;
+void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value) {
+  if (is_inside_map(size, pos)) {
+    map[size->x * pos->y + pos->x] = value;
   }
-
-  return map[columns * r + c];
 }
 
-void set_map_block(Map map, Dim rows, Dim columns, Dim r, Dim c, Block value) {
-  if (r < 0 || r >= rows || c < 0 || c >= columns) {
-    return;
-  }
-
-  map[columns * r + c] = value;
+bool is_inside_map(const Dim2 *size, const Pos2 *pos) {
+  return pos->x >= 0 && pos->x < size->x && pos->y >= 0 && pos->y < size->y;
 }
