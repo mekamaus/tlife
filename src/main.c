@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <time.h>
 #include <unistd.h>
 
 const char HIDE_CURSOR_COMMAND[] = "tput civis";
@@ -53,16 +54,16 @@ int main() {
 
   while (true) {
     if (get_window_size(&screen_size)) {
-      // printf("resizing window to %d %d\n", screen_size.x, screen_size.y);
       free(screen);
       screen = malloc(sizeof(Cell) * (screen_size.x + 1) * screen_size.y);
 
-      for (int y = 0; y < screen_size.y; ++y) {
-        for (int x = 0; x <= screen_size.x; ++x) {
-          screen[(screen_size.x + 1) * y + x] =
-              x < screen_size.x
+      Dim2 pos;
+      for (pos.y = 0; pos.y < screen_size.y; ++pos.y) {
+        for (pos.x = 0; pos.x <= screen_size.x; ++pos.x) {
+          screen[get_screen_index(&screen_size, &pos)] =
+              pos.x < screen_size.x
                   ? EMPTY_CELL
-                  : y < screen_size.y - 1 ? NEWLINE_CELL : NULL_CELL;
+                  : pos.y < screen_size.y - 1 ? NEWLINE_CELL : NULL_CELL;
         }
       }
 
@@ -78,31 +79,23 @@ int main() {
 
       render_map(
           // screen
-          screen, &screen_size,
+          screen, &screen_size, &offset,
           // map
-          map, &map_size,
-          // offset
-          &offset);
+          map, &map_size);
 
-      // render_player(
-      //    // screen
-      //    screen, &screen_size,
-      //    // player
-      //    &player_pos, &player_delta,
-      //    // offset
-      //    &offset);
+      render_player(
+          // screen
+          screen, &screen_size, &offset,
+          // player
+          &player_pos, &player_delta);
 
       printf("\e[0;0H%s", (char *)screen);
-      // printf("asdf\n");
-      // printf("%d %d\n", player_pos.x, player_pos.y);
-      // printf("1: %c\n", screen[0].background.data[1]);
-      // printf("2: %c\n", screen[0].background.data[2]);
-      // printf("3: %c\n", screen[0].background.data[3]);
-      // printf("4: %c\n", screen[0].background.data[4]);
     }
 
     bool player_moved = false;
     bool map_changed = false;
+
+    // printf("control player %ld\n", time(NULL));
     control_player(
         // map
         map, &map_size,
@@ -120,8 +113,6 @@ int main() {
     }
 
     redraw = redraw || player_moved || map_changed;
-
-    // resized = resize_window(&rows, &columns);
   }
 
   free(screen);

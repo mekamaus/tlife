@@ -23,3 +23,7 @@ void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value) {
 bool is_inside_map(const Dim2 *size, const Pos2 *pos) {
   return pos->x >= 0 && pos->x < size->x && pos->y >= 0 && pos->y < size->y;
 }
+
+Dim get_map_index(const Dim2 *size, const Dim2 *pos) {
+  return size->x * pos->y + pos->x;
+}

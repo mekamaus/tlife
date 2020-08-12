@@ -18,3 +18,6 @@ Block get_map_block(Map map, const Dim2 *size, const Pos2 *pos);
 
 // Sets the block at the given row and column.
 void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value);
+
+// Gets the index of the block in the map at a position.
+Dim get_map_index(const Dim2 *size, const Dim2 *pos);

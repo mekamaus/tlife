@@ -5,4 +5,4 @@
 
 typedef Cell *Screen;
 
-Screen create_screen(const Dim2 *size);
+Dim get_screen_index(const Dim2 *size, const Dim2 *pos);

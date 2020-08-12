@@ -24,3 +24,7 @@ extern const Cell NULL_CELL;
 void set_fg_color(Cell *cell, Color color);
 
 void set_bg_color(Cell *cell, Color color);
+
+Color get_fg_color(const Cell *cell);
+
+Color get_bg_color(const Cell *cell);

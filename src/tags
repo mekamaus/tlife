@@ -10,6 +10,7 @@
 BLACK	color.c	/^const Color BLACK = 0;$/;"	v	typeref:typename:const Color
 BLOCK	shape.c	/^const Shape BLOCK = {{{0xE2, 0x96, 0x88}}, {{0xE2, 0x96, 0x88}}};$/;"	v	typeref:typename:const Shape
 BLOCK_EMPTY	block.c	/^const Block BLOCK_EMPTY = 0;$/;"	v	typeref:typename:const Block
+BODY_OFFSET	player_renderer.c	/^const Pos2 BODY_OFFSET = {0, 0};$/;"	v	typeref:typename:const Pos2
 Block	block.h	/^typedef unsigned short Block;$/;"	t	typeref:typename:unsigned short
 COLOR_INDEX	cell.c	/^const unsigned char COLOR_INDEX = 7;$/;"	v	typeref:typename:const unsigned char
 CONTROLS_DOWN	controls.c	/^const Key CONTROLS_DOWN = 'j';$/;"	v	typeref:typename:const Key
@@ -33,6 +34,7 @@ EMPTY_TARGET_RIGHT	shape.c	/^const Shape EMPTY_TARGET_RIGHT = {{{0xEE, 0x82, 0xB
 EscapedColor	cell.h	/^typedef struct EscapedColor {$/;"	s
 EscapedColor	cell.h	/^} EscapedColor;$/;"	t	typeref:struct:EscapedColor
 Filename	file.h	/^typedef char *Filename;$/;"	t	typeref:typename:char *
+HEAD_OFFSET	player_renderer.c	/^const Pos2 HEAD_OFFSET = {0, -1};$/;"	v	typeref:typename:const Pos2
 HIDE_CURSOR_COMMAND	main.c	/^const char HIDE_CURSOR_COMMAND[] = "tput civis";$/;"	v	typeref:typename:const char[]
 Key	controls.h	/^typedef unsigned char Key;$/;"	t	typeref:typename:unsigned char
 LIGHT_GRAY	color.c	/^const Color LIGHT_GRAY = 243;$/;"	v	typeref:typename:const Color
@@ -40,6 +42,7 @@ LIGHT_OLIVE	color.c	/^const Color LIGHT_OLIVE = 136;$/;"	v	typeref:typename:cons
 Map	map.h	/^typedef Block *Map;$/;"	t	typeref:typename:Block *
 NEWLINE_CELL	cell.c	/^const Cell NEWLINE_CELL = {$/;"	v	typeref:typename:const Cell
 NULL_CELL	cell.c	/^const Cell NULL_CELL = {$/;"	v	typeref:typename:const Cell
+OFFSET_SCREEN_POSITION	player_renderer.c	/^#define OFFSET_SCREEN_POSITION(/;"	d	file:
 OUTSIDE_BLOCK	map.c	/^const Block OUTSIDE_BLOCK = 1;$/;"	v	typeref:typename:const Block
 PLAYER_BODY_BACK	shape.c	/^const Shape PLAYER_BODY_BACK = {{{0xE2, 0x96, 0x9C}}, {{0xE2, 0x96, 0x9B}}};$/;"	v	typeref:typename:const Shape
 PLAYER_BODY_FRONT	shape.c	/^const Shape PLAYER_BODY_FRONT = {{{0xE2, 0x96, 0x9C}}, {{0xE2, 0x96, 0x9B}}};$/;"	v	typeref:typename:const Shape
@@ -59,19 +62,22 @@ a	shape.h	/^  Char a;$/;"	m	struct:Shape	typeref:typename:Char
 b	shape.h	/^  Char b;$/;"	m	struct:Shape	typeref:typename:Char
 background	cell.h	/^  EscapedColor background;$/;"	m	struct:Cell	typeref:typename:EscapedColor
 control_player	player.c	/^void control_player(Map map, const Dim2 *size, Pos2 *pos, Pos2 *delta,$/;"	f	typeref:typename:void
-create_screen	screen.c	/^Screen create_screen(const Dim2 *size) {$/;"	f	typeref:typename:Screen
 data	cell.h	/^  unsigned char data[11];$/;"	m	struct:EscapedColor	typeref:typename:unsigned char[11]
 data	char.h	/^  unsigned char data[3];$/;"	m	struct:Char	typeref:typename:unsigned char[3]
 foreground	cell.h	/^  EscapedColor foreground;$/;"	m	struct:Cell	typeref:typename:EscapedColor
+get_bg_color	cell.c	/^Color get_bg_color(Cell *cell) { return get_color(&cell->background); }$/;"	f	typeref:typename:Color
+get_color	cell.c	/^Color get_color(const EscapedColor *escaped_color) {$/;"	f	typeref:typename:Color
+get_data_color	cell.c	/^Color get_data_color(const unsigned char *data) {$/;"	f	typeref:typename:Color
+get_fg_color	cell.c	/^Color get_fg_color(Cell *cell) { return get_color(&cell->foreground); }$/;"	f	typeref:typename:Color
 get_map_block	map.c	/^Block get_map_block(Map map, const Dim2 *size, const Pos2 *pos) {$/;"	f	typeref:typename:Block
-get_target_shape	player_renderer.c	/^const Shape *get_target_shape(int dr, int dc) { return &EMPTY_TARGET; }$/;"	f	typeref:typename:const Shape *
-get_target_shape_left	player_renderer.c	/^const Shape *get_target_shape_left(int dr, int dc) {$/;"	f	typeref:typename:const Shape *
-get_target_shape_right	player_renderer.c	/^const Shape *get_target_shape_right(int dr, int dc) {$/;"	f	typeref:typename:const Shape *
+get_map_index	map.c	/^Dim get_map_index(const Dim2 *size, const Dim2 *pos) {$/;"	f	typeref:typename:Dim
+get_screen_index	screen.c	/^Dim get_screen_index(const Dim2 *size, const Dim2 *pos) {$/;"	f	typeref:typename:Dim
 get_window_size	main.c	/^bool get_window_size(Dim2 *size) {$/;"	f	typeref:typename:bool
 is_inside_map	map.c	/^bool is_inside_map(const Dim2 *size, const Pos2 *pos) {$/;"	f	typeref:typename:bool
 is_map_block_empty	map.c	/^bool is_map_block_empty(Map map, const Dim2 *size, const Pos2 *pos) {$/;"	f	typeref:typename:bool
 main	main.c	/^int main() {$/;"	f	typeref:typename:int
 main	test.c	/^int main() {$/;"	f	typeref:typename:int
+offset_position	player_renderer.c	/^void offset_position(Dim2 *result, const Pos2 *source,$/;"	f	typeref:typename:void
 read_map	map_io.c	/^void read_map(Filename filename, Map map, const Dim2 *size) {$/;"	f	typeref:typename:void
 read_player	player.c	/^void read_player(const Filename filename, Pos2 *pos, Pos2 *delta) {$/;"	f	typeref:typename:void
 readkey	controls.c	/^char readkey() {$/;"	f	typeref:typename:char
@@ -80,6 +86,7 @@ render_map	map_renderer.c	/^void render_map($/;"	f	typeref:typename:void
 render_player	player_renderer.c	/^void render_player($/;"	f	typeref:typename:void
 set_bg_color	cell.c	/^void set_bg_color(Cell *cell, Color color) {$/;"	f	typeref:typename:void
 set_color	cell.c	/^void set_color(EscapedColor *escaped_color, Color color) {$/;"	f	typeref:typename:void
+set_data_color	cell.c	/^void set_data_color(unsigned char *data, Color color) {$/;"	f	typeref:typename:void
 set_fg_color	cell.c	/^void set_fg_color(Cell *cell, Color color) {$/;"	f	typeref:typename:void
 set_map_block	map.c	/^void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value) {$/;"	f	typeref:typename:void
 shape	cell.h	/^  Shape shape;$/;"	m	struct:Cell	typeref:typename:Shape

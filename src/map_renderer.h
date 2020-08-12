@@ -8,8 +8,6 @@
 // TODO: make this only for the map, and make the player renderer separate.
 void render_map(
     // Screen
-    Screen screen, const Dim2 *screen_size,
+    Screen screen, const Dim2 *screen_size, const Pos2 *offset,
     // Map
-    const Map map, const Dim2 *map_size,
-    // Offset
-    const Pos2 *offset);
+    const Map map, const Dim2 *map_size);

@@ -20,13 +20,22 @@ const Cell NULL_CELL = {
     {{{'\r', '\r', '\r'}}, {{'\r', '\r', '\0'}}},
 };
 
-void set_color(EscapedColor *escaped_color, Color color) {
-  unsigned char color_string[3] = {};
-  color_string[0] = '0' + color / 100;
-  color_string[1] = '0' + (color / 10) % 10;
-  color_string[2] = '0' + color % 10;
+void set_data_color(unsigned char *data, Color color) {
+  data[0] = '0' + color / 100;
+  data[1] = '0' + (color / 10) % 10;
+  data[2] = '0' + color % 10;
+}
 
-  memcpy(escaped_color->data + COLOR_INDEX, color_string, 3);
+Color get_data_color(const unsigned char *data) {
+  return (data[0] - '0') * 100 + (data[1] - '0') * 10 + (data[2] - '0');
+}
+
+void set_color(EscapedColor *escaped_color, Color color) {
+  set_data_color(escaped_color->data + COLOR_INDEX, color);
+}
+
+Color get_color(const EscapedColor *escaped_color) {
+  return get_data_color(escaped_color->data + COLOR_INDEX);
 }
 
 void set_fg_color(Cell *cell, Color color) {
@@ -36,3 +45,7 @@ void set_fg_color(Cell *cell, Color color) {
 void set_bg_color(Cell *cell, Color color) {
   set_color(&cell->background, color);
 }
+
+Color get_fg_color(const Cell *cell) { return get_color(&cell->foreground); }
+
+Color get_bg_color(const Cell *cell) { return get_color(&cell->background); }
