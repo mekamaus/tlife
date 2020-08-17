@@ -1,6 +1,7 @@
 #pragma once
 
 #include "block.h"
+#include "filename.h"
 #include "map.h"
 #include "scalar.h"
 #include <stdio.h>

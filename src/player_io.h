@@ -1,4 +1,4 @@
-#include "file.h"
+#include "filename.h"
 #include "vector.h"
 
 void read_player(const Filename filename, Pos2 *pos, Pos2 *delta);

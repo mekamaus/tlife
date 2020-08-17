@@ -1,4 +1,4 @@
-#include "controls.h"
+#include "control.h"
 #include "map.h"
 #include "vector.h"
 

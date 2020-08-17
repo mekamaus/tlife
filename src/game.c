@@ -1,6 +1,10 @@
 #include "game.h"
 #include "constants.h"
+#include "control.h"
 #include "frame.h"
+#include "map_io.h"
+#include "player_io.h"
+#include "terminal.h"
 
 // Prepares game state for loop.
 void init_game(const Filename player_file, Pos2 *player_pos, Pos2 *player_delta,

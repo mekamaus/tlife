@@ -1,5 +1,4 @@
 #include "player_movement.h"
-#include "controls.h"
 #include "player_target.h"
 
 const Pos2 MOVE_RIGHT = {1, 0};
