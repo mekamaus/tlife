@@ -1,29 +1,18 @@
 #include "map.h"
 #include "vector.h"
 
-const Block OUTSIDE_BLOCK = 1;
+// Gets the index of the block in the map at a position.
+Dim get_map_index(const Dim2 *size, const Dim2 *pos);
 
-bool is_inside_map(const Dim2 *size, const Pos2 *pos);
-
-bool is_map_block_empty(Map map, const Dim2 *size, const Pos2 *pos) {
-  return !is_inside_map(size, pos) || !map[size->x * pos->y + pos->x];
+Block get_map_block(const Map map, const Dim2 *size, const Dim2 *pos) {
+  return map[get_map_index(size, pos)];
 }
 
-Block get_map_block(Map map, const Dim2 *size, const Pos2 *pos) {
-  return is_inside_map(size, pos) ? map[size->x * pos->y + pos->x]
-                                  : OUTSIDE_BLOCK;
+void set_map_block(Map map, const Dim2 *size, const Dim2 *pos, Block value) {
+  map[get_map_index(size, pos)] = value;
 }
 
-void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value) {
-  if (is_inside_map(size, pos)) {
-    map[size->x * pos->y + pos->x] = value;
-  }
-}
-
-bool is_inside_map(const Dim2 *size, const Pos2 *pos) {
-  return pos->x >= 0 && pos->x < size->x && pos->y >= 0 && pos->y < size->y;
-}
-
+// Gets the index of the block in the map at a position.
 Dim get_map_index(const Dim2 *size, const Dim2 *pos) {
   return size->x * pos->y + pos->x;
 }

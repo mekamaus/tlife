@@ -5,4 +5,8 @@
 
 typedef Cell *Screen;
 
-Dim get_screen_index(const Dim2 *size, const Dim2 *pos);
+Cell *get_screen_cell(const Screen screen, const Dim2 *size, const Dim2 *pos);
+
+Screen create_empty_screen(const Dim2 *size);
+
+void destroy_screen(Screen screen);

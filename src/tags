@@ -1,99 +1,60 @@
-!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
-!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
-!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
-!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
-!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
-!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	0.0.0	/c77c95a/
-BLACK	color.c	/^const Color BLACK = 0;$/;"	v	typeref:typename:const Color
-BLOCK	shape.c	/^const Shape BLOCK = {{{0xE2, 0x96, 0x88}}, {{0xE2, 0x96, 0x88}}};$/;"	v	typeref:typename:const Shape
-BLOCK_EMPTY	block.c	/^const Block BLOCK_EMPTY = 0;$/;"	v	typeref:typename:const Block
-BODY_OFFSET	player_renderer.c	/^const Pos2 BODY_OFFSET = {0, 0};$/;"	v	typeref:typename:const Pos2
-Block	block.h	/^typedef unsigned short Block;$/;"	t	typeref:typename:unsigned short
-COLOR_INDEX	cell.c	/^const unsigned char COLOR_INDEX = 7;$/;"	v	typeref:typename:const unsigned char
-CONTROLS_DOWN	controls.c	/^const Key CONTROLS_DOWN = 'j';$/;"	v	typeref:typename:const Key
-CONTROLS_LEFT	controls.c	/^const Key CONTROLS_LEFT = 'h';$/;"	v	typeref:typename:const Key
-CONTROLS_RIGHT	controls.c	/^const Key CONTROLS_RIGHT = 'l';$/;"	v	typeref:typename:const Key
-CONTROLS_UP	controls.c	/^const Key CONTROLS_UP = 'k';$/;"	v	typeref:typename:const Key
-Cell	cell.h	/^typedef struct Cell {$/;"	s
-Cell	cell.h	/^} Cell;$/;"	t	typeref:struct:Cell
-Char	char.h	/^typedef struct Char {$/;"	s
-Char	char.h	/^} Char;$/;"	t	typeref:struct:Char
-Color	color.h	/^typedef unsigned char Color;$/;"	t	typeref:typename:unsigned char
-DARK_GREEN	color.c	/^const Color DARK_GREEN = 22;$/;"	v	typeref:typename:const Color
-Dim	scalar.h	/^typedef unsigned int Dim;$/;"	t	typeref:typename:unsigned int
-Dim2	vector.h	/^typedef struct Dim2 {$/;"	s
-Dim2	vector.h	/^} Dim2;$/;"	t	typeref:struct:Dim2
-EMPTY	shape.c	/^const Shape EMPTY = {{{0x20, 0x08, 0x20}}, {{0x20, 0x08, 0x20}}};$/;"	v	typeref:typename:const Shape
-EMPTY_CELL	cell.c	/^const Cell EMPTY_CELL = {$/;"	v	typeref:typename:const Cell
-EMPTY_TARGET	shape.c	/^const Shape EMPTY_TARGET = {{{0xEE, 0x82, 0xB3}}, {{0xEE, 0x82, 0xB1}}};$/;"	v	typeref:typename:const Shape
-EMPTY_TARGET_LEFT	shape.c	/^const Shape EMPTY_TARGET_LEFT = {{{0x20, 0x08, 0x20}}, {{0xEE, 0x82, 0xB3}}};$/;"	v	typeref:typename:const Shape
-EMPTY_TARGET_RIGHT	shape.c	/^const Shape EMPTY_TARGET_RIGHT = {{{0xEE, 0x82, 0xB1}}, {{0x20, 0x08, 0x20}}};$/;"	v	typeref:typename:const Shape
-EscapedColor	cell.h	/^typedef struct EscapedColor {$/;"	s
-EscapedColor	cell.h	/^} EscapedColor;$/;"	t	typeref:struct:EscapedColor
-Filename	file.h	/^typedef char *Filename;$/;"	t	typeref:typename:char *
-HEAD_OFFSET	player_renderer.c	/^const Pos2 HEAD_OFFSET = {0, -1};$/;"	v	typeref:typename:const Pos2
-HIDE_CURSOR_COMMAND	main.c	/^const char HIDE_CURSOR_COMMAND[] = "tput civis";$/;"	v	typeref:typename:const char[]
-Key	controls.h	/^typedef unsigned char Key;$/;"	t	typeref:typename:unsigned char
-LIGHT_GRAY	color.c	/^const Color LIGHT_GRAY = 243;$/;"	v	typeref:typename:const Color
-LIGHT_OLIVE	color.c	/^const Color LIGHT_OLIVE = 136;$/;"	v	typeref:typename:const Color
-Map	map.h	/^typedef Block *Map;$/;"	t	typeref:typename:Block *
-NEWLINE_CELL	cell.c	/^const Cell NEWLINE_CELL = {$/;"	v	typeref:typename:const Cell
-NULL_CELL	cell.c	/^const Cell NULL_CELL = {$/;"	v	typeref:typename:const Cell
-OFFSET_SCREEN_POSITION	player_renderer.c	/^#define OFFSET_SCREEN_POSITION(/;"	d	file:
-OUTSIDE_BLOCK	map.c	/^const Block OUTSIDE_BLOCK = 1;$/;"	v	typeref:typename:const Block
-PLAYER_BODY_BACK	shape.c	/^const Shape PLAYER_BODY_BACK = {{{0xE2, 0x96, 0x9C}}, {{0xE2, 0x96, 0x9B}}};$/;"	v	typeref:typename:const Shape
-PLAYER_BODY_FRONT	shape.c	/^const Shape PLAYER_BODY_FRONT = {{{0xE2, 0x96, 0x9C}}, {{0xE2, 0x96, 0x9B}}};$/;"	v	typeref:typename:const Shape
-PLAYER_BODY_LEFT	shape.c	/^const Shape PLAYER_BODY_LEFT = {{{0xE2, 0x96, 0x9C}}, {{0xE2, 0x96, 0x8D}}};$/;"	v	typeref:typename:const Shape
-PLAYER_BODY_RIGHT	shape.c	/^const Shape PLAYER_BODY_RIGHT = {{{0xE2, 0x96, 0x90}}, {{0xE2, 0x96, 0x9B}}};$/;"	v	typeref:typename:const Shape
-PLAYER_HEAD	shape.c	/^const Shape PLAYER_HEAD = {{{0xEE, 0x82, 0xB6}}, {{0xEE, 0x82, 0xB4}}};$/;"	v	typeref:typename:const Shape
-PURPLE	color.c	/^const Color PURPLE = 165;$/;"	v	typeref:typename:const Color
-Pos	scalar.h	/^typedef int Pos;$/;"	t	typeref:typename:int
-Pos2	vector.h	/^typedef struct Pos2 {$/;"	s
-Pos2	vector.h	/^} Pos2;$/;"	t	typeref:struct:Pos2
-RED	color.c	/^const Color RED = 1;$/;"	v	typeref:typename:const Color
-Screen	screen.h	/^typedef Cell *Screen;$/;"	t	typeref:typename:Cell *
-Shape	shape.h	/^typedef struct Shape {$/;"	s
-Shape	shape.h	/^} Shape;$/;"	t	typeref:struct:Shape
-WHITE	color.c	/^const Color WHITE = 255;$/;"	v	typeref:typename:const Color
-a	shape.h	/^  Char a;$/;"	m	struct:Shape	typeref:typename:Char
-b	shape.h	/^  Char b;$/;"	m	struct:Shape	typeref:typename:Char
-background	cell.h	/^  EscapedColor background;$/;"	m	struct:Cell	typeref:typename:EscapedColor
-control_player	player.c	/^void control_player(Map map, const Dim2 *size, Pos2 *pos, Pos2 *delta,$/;"	f	typeref:typename:void
-data	cell.h	/^  unsigned char data[11];$/;"	m	struct:EscapedColor	typeref:typename:unsigned char[11]
-data	char.h	/^  unsigned char data[3];$/;"	m	struct:Char	typeref:typename:unsigned char[3]
-foreground	cell.h	/^  EscapedColor foreground;$/;"	m	struct:Cell	typeref:typename:EscapedColor
-get_bg_color	cell.c	/^Color get_bg_color(Cell *cell) { return get_color(&cell->background); }$/;"	f	typeref:typename:Color
-get_color	cell.c	/^Color get_color(const EscapedColor *escaped_color) {$/;"	f	typeref:typename:Color
-get_data_color	cell.c	/^Color get_data_color(const unsigned char *data) {$/;"	f	typeref:typename:Color
-get_fg_color	cell.c	/^Color get_fg_color(Cell *cell) { return get_color(&cell->foreground); }$/;"	f	typeref:typename:Color
-get_map_block	map.c	/^Block get_map_block(Map map, const Dim2 *size, const Pos2 *pos) {$/;"	f	typeref:typename:Block
-get_map_index	map.c	/^Dim get_map_index(const Dim2 *size, const Dim2 *pos) {$/;"	f	typeref:typename:Dim
-get_screen_index	screen.c	/^Dim get_screen_index(const Dim2 *size, const Dim2 *pos) {$/;"	f	typeref:typename:Dim
-get_window_size	main.c	/^bool get_window_size(Dim2 *size) {$/;"	f	typeref:typename:bool
-is_inside_map	map.c	/^bool is_inside_map(const Dim2 *size, const Pos2 *pos) {$/;"	f	typeref:typename:bool
-is_map_block_empty	map.c	/^bool is_map_block_empty(Map map, const Dim2 *size, const Pos2 *pos) {$/;"	f	typeref:typename:bool
-main	main.c	/^int main() {$/;"	f	typeref:typename:int
-main	test.c	/^int main() {$/;"	f	typeref:typename:int
-offset_position	player_renderer.c	/^void offset_position(Dim2 *result, const Pos2 *source,$/;"	f	typeref:typename:void
-read_map	map_io.c	/^void read_map(Filename filename, Map map, const Dim2 *size) {$/;"	f	typeref:typename:void
-read_player	player.c	/^void read_player(const Filename filename, Pos2 *pos, Pos2 *delta) {$/;"	f	typeref:typename:void
-readkey	controls.c	/^char readkey() {$/;"	f	typeref:typename:char
-render_block	block_renderer.c	/^void render_block(Cell *cell, Block block) {$/;"	f	typeref:typename:void
-render_map	map_renderer.c	/^void render_map($/;"	f	typeref:typename:void
-render_player	player_renderer.c	/^void render_player($/;"	f	typeref:typename:void
-set_bg_color	cell.c	/^void set_bg_color(Cell *cell, Color color) {$/;"	f	typeref:typename:void
-set_color	cell.c	/^void set_color(EscapedColor *escaped_color, Color color) {$/;"	f	typeref:typename:void
-set_data_color	cell.c	/^void set_data_color(unsigned char *data, Color color) {$/;"	f	typeref:typename:void
-set_fg_color	cell.c	/^void set_fg_color(Cell *cell, Color color) {$/;"	f	typeref:typename:void
-set_map_block	map.c	/^void set_map_block(Map map, const Dim2 *size, const Pos2 *pos, Block value) {$/;"	f	typeref:typename:void
-shape	cell.h	/^  Shape shape;$/;"	m	struct:Cell	typeref:typename:Shape
-start_controls	controls.c	/^void start_controls() {$/;"	f	typeref:typename:void
-write_map	map_io.c	/^void write_map(Filename filename, Map map, const Dim2 *size) {$/;"	f	typeref:typename:void
-write_player	player.c	/^void write_player(const Filename filename, const Pos2 *pos, const Pos2 *delta) {$/;"	f	typeref:typename:void
-x	vector.h	/^  Dim x;$/;"	m	struct:Dim2	typeref:typename:Dim
-x	vector.h	/^  Pos x;$/;"	m	struct:Pos2	typeref:typename:Pos
-y	vector.h	/^  Dim y;$/;"	m	struct:Dim2	typeref:typename:Dim
-y	vector.h	/^  Pos y;$/;"	m	struct:Pos2	typeref:typename:Pos
+Block	block.h	/^typedef unsigned short Block;$/
+Cell	cell.h	/^} Cell;$/
+Char	char.h	/^} Char;$/
+Color	color.h	/^typedef unsigned char Color;$/
+DATA_FILE	constants.c	/^#define DATA_FILE(x) (Filename) "\/tmp\/" #x$/
+Dim	scalar.h	/^typedef unsigned int Dim;$/
+Dim2	vector.h	/^} Dim2;$/
+EscapedColor	cell.h	/^} EscapedColor;$/
+Filename	file.h	/^typedef char *Filename;$/
+Key	controls.h	/^typedef unsigned char Key;$/
+Map	map.h	/^typedef Block *Map;$/
+Mmain	main.c	/^int main() {$/
+Mtags	tags	/^Mmain	main.c	\/^int main() {$\/$/
+Mtest	test.c	/^int main() {$/
+OFFSET_SCREEN_POSITION	player_visual.c	/^#define OFFSET_SCREEN_POSITION(result_var, offset_/
+Pos	scalar.h	/^typedef int Pos;$/
+Pos2	vector.h	/^} Pos2;$/
+Screen	screen.h	/^typedef Cell *Screen;$/
+Shape	shape.h	/^} Shape;$/
+bool	bool.h	/^typedef unsigned char bool;$/
+control_player	player.c	/^void control_player(Map map, const Dim2 *size, Pos/
+create_empty_screen	screen.c	/^Screen create_empty_screen(const Dim2 *size) {$/
+destroy_game	game.c	/^void destroy_game(Screen screen) { destroy_screen(/
+destroy_screen	screen.c	/^void destroy_screen(Screen screen) {$/
+display_frame	frame.c	/^void display_frame(const Screen screen, const Dim2/
+draw_screen	terminal.c	/^void draw_screen(Screen screen) { printf(SCREEN_FO/
+get_bg_color	cell.c	/^Color get_bg_color(const Cell *cell) { return get_/
+get_color	cell.c	/^Color get_color(const EscapedColor *escaped_color)/
+get_data_color	cell.c	/^Color get_data_color(const unsigned char *data) {$/
+get_fg_color	cell.c	/^Color get_fg_color(const Cell *cell) { return get_/
+get_map_block	map.c	/^Block get_map_block(Map map, const Dim2 *size, con/
+get_map_index	map.c	/^Dim get_map_index(const Dim2 *size, const Dim2 *po/
+get_screen_index	screen.c	/^Dim get_screen_index(const Dim2 *size, const Dim2 /
+get_terminal_size	terminal.c	/^void get_terminal_size(Dim2 *size) {$/
+get_window_size	window.c	/^bool get_window_size(Dim2 *size) {$/
+hide_cursor	terminal.c	/^void hide_cursor() { system(HIDE_CURSOR_COMMAND); /
+init_game	game.c	/^void init_game(const Filename player_file, Pos2 *p/
+is_inside_map	map.c	/^bool is_inside_map(const Dim2 *size, const Pos2 *p/
+is_map_block_empty	map.c	/^bool is_map_block_empty(Map map, const Dim2 *size,/
+loop_game	game.c	/^void loop_game(const Filename player_file, Pos2 *p/
+offset_position	player_visual.c	/^void offset_position(Dim2 *result, const Pos2 *sou/
+read_map	map_io.c	/^void read_map(Filename filename, Map map, const Di/
+read_player	player_io.c	/^void read_player(const Filename filename, Pos2 *po/
+readkey	controls.c	/^char readkey() {$/
+render_block	block_visual.c	/^void render_block(Cell *cell, Block block) {$/
+render_map	map_visual.c	/^void render_map($/
+render_player	player_visual.c	/^void render_player($/
+run_game	game.c	/^void run_game() {$/
+set_bg_color	cell.c	/^void set_bg_color(Cell *cell, Color color) {$/
+set_color	cell.c	/^void set_color(EscapedColor *escaped_color, Color /
+set_data_color	cell.c	/^void set_data_color(unsigned char *data, Color col/
+set_fg_color	cell.c	/^void set_fg_color(Cell *cell, Color color) {$/
+set_map_block	map.c	/^void set_map_block(Map map, const Dim2 *size, cons/
+start_controls	controls.c	/^void start_controls() {$/
+terminal_to_window	window.c	/^void terminal_to_window(Dim2 *window, const Dim2 */
+terminal_to_window_x	window.c	/^Dim terminal_to_window_x(Dim value) { return value/
+terminal_to_window_y	window.c	/^Dim terminal_to_window_y(Dim value) { return value/
+update_frame	frame.c	/^bool update_frame(const Filename player_file, Pos2/
+write_map	map_io.c	/^void write_map(Filename filename, Map map, const D/
+write_player	player_io.c	/^void write_player(const Filename filename, const P/

@@ -1,4 +1,4 @@
-#include "block_renderer.h"
+#include "block_visual.h"
 #include "color.h"
 
 void render_block(Cell *cell, Block block) {
