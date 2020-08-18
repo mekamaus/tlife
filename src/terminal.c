@@ -1,14 +1,19 @@
 #include "terminal.h"
+#include "bool.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
 const char HIDE_CURSOR_COMMAND[] = "tput civis";
+const char SHOW_CURSOR_COMMAND[] = "tput cnorm";
 const char SCREEN_FORMAT[] = "\e[0;0H%s";
 
 void draw_screen(Screen screen) { printf(SCREEN_FORMAT, (char *)screen); }
 
-void hide_cursor() { system(HIDE_CURSOR_COMMAND); }
+void set_cursor_visibility(int visible) {
+  system(visible ? SHOW_CURSOR_COMMAND : HIDE_CURSOR_COMMAND);
+}
 
 void get_terminal_size(Dim2 *size) {
   struct winsize ws;

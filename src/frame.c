@@ -2,34 +2,30 @@
 #include "map_io.h"
 #include "map_visual.h"
 #include "player.h"
+#include "player_building.h"
 #include "player_io.h"
 #include "player_visual.h"
 #include "terminal.h"
 #include "window.h"
+#include <stdlib.h>
 
 bool update_frame(const Filename player_file, Pos2 *player_pos,
                   Pos2 *player_delta, const Filename map_file, Map map,
                   Dim2 *map_size, Screen *screen, Dim2 *screen_size,
-                  Pos2 *offset, bool *exit) {
-  bool player_moved = false;
-  bool map_changed = false;
-
+                  Pos2 *offset, bool *stride, bool *should_exit) {
   Control control = get_control();
   if (control == CONTROL_EXIT) {
-    *exit = true;
+    *should_exit = true;
     return false;
   }
 
-  control_player(map, map_size, player_pos, player_delta, &player_moved,
-                 &map_changed, control);
+  bool changed =
+      control_player(map, map_size, player_pos, player_delta, stride, control);
 
   bool window_resized = get_window_size(screen_size);
 
-  if (player_moved) {
+  if (changed) {
     write_player(player_file, player_pos, player_delta);
-  }
-
-  if (map_changed) {
     write_map(map_file, map, map_size);
   }
 
@@ -41,7 +37,7 @@ bool update_frame(const Filename player_file, Pos2 *player_pos,
   offset->x = (Pos)screen_size->x / 2 - player_pos->x;
   offset->y = (Pos)screen_size->y / 2 - player_pos->y;
 
-  return player_moved || map_changed || window_resized;
+  return changed || window_resized;
 }
 
 void display_frame(const Screen screen, const Dim2 *screen_size,

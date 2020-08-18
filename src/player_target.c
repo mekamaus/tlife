@@ -12,19 +12,12 @@ Block get_target_block(const Map map, const Dim2 *size, const Pos2 *pos,
       pos->x + delta->x,
       pos->y + delta->y,
   };
-  if (!map_contains_target(size, pos, delta)) {
-    return 0;
-  }
 
   return get_map_block(map, size, &target);
 }
 
 void set_target_block(Map map, const Dim2 *size, const Pos2 *pos,
                       const Pos2 *delta, Block block) {
-  if (!map_contains_target(size, pos, delta)) {
-    return;
-  }
-
   Dim2 target = {
       pos->x + delta->x,
       pos->y + delta->y,

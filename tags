@@ -1,57 +1,12 @@
-Block	src/block.h	/^typedef unsigned short Block;$/
-Cell	src/cell.h	/^} Cell;$/
-Char	src/char.h	/^} Char;$/
-Color	src/color.h	/^typedef unsigned char Color;$/
-DATA_FILE	src/constants.c	/^#define DATA_FILE(x) (Filename) "\/tmp\/" #x$/
-Dim	src/scalar.h	/^typedef unsigned int Dim;$/
-Dim2	src/vector.h	/^} Dim2;$/
-EscapedColor	src/cell.h	/^} EscapedColor;$/
-Filename	src/file.h	/^typedef char *Filename;$/
-Key	src/controls.h	/^typedef unsigned char Key;$/
-Map	src/map.h	/^typedef Block *Map;$/
-Mmain	src/main.c	/^int main() {$/
-Mtest	src/test.c	/^int main() {$/
-OFFSET_SCREEN_POSITION	src/player_visual.c	/^#define OFFSET_SCREEN_POSITION(result_var, offset_/
-Pos	src/scalar.h	/^typedef int Pos;$/
-Pos2	src/vector.h	/^} Pos2;$/
-Screen	src/screen.h	/^typedef Cell *Screen;$/
-Shape	src/shape.h	/^} Shape;$/
-bool	src/bool.h	/^typedef unsigned char bool;$/
-control_player	src/player.c	/^void control_player(Map map, const Dim2 *size, Pos/
-create_empty_screen	src/screen.c	/^Screen create_empty_screen(const Dim2 *size) {$/
-destroy_game	src/game.c	/^void destroy_game(Screen screen) { destroy_screen(/
-destroy_screen	src/screen.c	/^void destroy_screen(Screen screen) { free(screen);/
-draw_screen	src/terminal.c	/^void draw_screen(Screen screen) { printf(SCREEN_FO/
-get_bg_color	src/cell.c	/^Color get_bg_color(const Cell *cell) { return get_/
-get_color	src/cell.c	/^Color get_color(const EscapedColor *escaped_color)/
-get_data_color	src/cell.c	/^Color get_data_color(const unsigned char *data) {$/
-get_fg_color	src/cell.c	/^Color get_fg_color(const Cell *cell) { return get_/
-get_map_block	src/map.c	/^Block get_map_block(Map map, const Dim2 *size, con/
-get_map_index	src/map.c	/^Dim get_map_index(const Dim2 *size, const Dim2 *po/
-get_screen_index	src/screen.c	/^Dim get_screen_index(const Dim2 *size, const Dim2 /
-get_terminal_size	src/terminal.c	/^void get_terminal_size(Dim2 *size) {$/
-get_window_size	src/window.c	/^bool get_window_size(Dim2 *size) {$/
-hide_cursor	src/terminal.c	/^void hide_cursor() { system(HIDE_CURSOR_COMMAND); /
-init_game	src/game.c	/^void init_game(const Filename player_file, Pos2 *p/
-is_inside_map	src/map.c	/^bool is_inside_map(const Dim2 *size, const Pos2 *p/
-is_map_block_empty	src/map.c	/^bool is_map_block_empty(Map map, const Dim2 *size,/
-loop_game	src/game.c	/^void loop_game(const Filename player_file, Pos2 *p/
-offset_position	src/player_visual.c	/^void offset_position(Dim2 *result, const Pos2 *sou/
-read_map	src/map_io.c	/^void read_map(Filename filename, Map map, const Di/
-read_player	src/player_io.c	/^void read_player(const Filename filename, Pos2 *po/
-readkey	src/controls.c	/^char readkey() {$/
-render_block	src/block_visual.c	/^void render_block(Cell *cell, Block block) {$/
-render_map	src/map_visual.c	/^void render_map($/
-render_player	src/player_visual.c	/^void render_player($/
-run_game	src/game.c	/^void run_game() {$/
-set_bg_color	src/cell.c	/^void set_bg_color(Cell *cell, Color color) {$/
-set_color	src/cell.c	/^void set_color(EscapedColor *escaped_color, Color /
-set_data_color	src/cell.c	/^void set_data_color(unsigned char *data, Color col/
-set_fg_color	src/cell.c	/^void set_fg_color(Cell *cell, Color color) {$/
-set_map_block	src/map.c	/^void set_map_block(Map map, const Dim2 *size, cons/
-start_controls	src/controls.c	/^void start_controls() {$/
-terminal_to_window	src/window.c	/^void terminal_to_window(Dim2 *window, const Dim2 */
-terminal_to_window_x	src/window.c	/^Dim terminal_to_window_x(Dim value) { return value/
-terminal_to_window_y	src/window.c	/^Dim terminal_to_window_y(Dim value) { return value/
-write_map	src/map_io.c	/^void write_map(Filename filename, Map map, const D/
-write_player	src/player_io.c	/^void write_player(const Filename filename, const P/
+Block	tags	/^Block	src\/block.h	\/^typedef unsigned short Block/
+Color	tags	/^Color	src\/color.h	\/^typedef unsigned char Color;/
+DATA_FILE	tags	/^DATA_FILE	src\/constants.c	\/^#define DATA_FILE(x)/
+Dim	tags	/^Dim	src\/scalar.h	\/^typedef unsigned int Dim;$\/$/
+Filename	tags	/^Filename	src\/file.h	\/^typedef char *Filename;$\//
+Key	tags	/^Key	src\/controls.h	\/^typedef unsigned char Key;$/
+Map	tags	/^Map	src\/map.h	\/^typedef Block *Map;$\/$/
+Mtags	tags	/^Mmain	src\/main.c	\/^int main() {$\/$/
+OFFSET_SCREEN_POSITION	tags	/^OFFSET_SCREEN_POSITION	src\/player_visual.c	\/^#de/
+Pos	tags	/^Pos	src\/scalar.h	\/^typedef int Pos;$\/$/
+Screen	tags	/^Screen	src\/screen.h	\/^typedef Cell *Screen;$\/$/
+bool	tags	/^bool	src\/bool.h	\/^typedef unsigned char bool;$\//

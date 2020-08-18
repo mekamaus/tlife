@@ -1,37 +1,70 @@
 #include "control.h"
+#include <fcntl.h>
+#include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <termios.h>
+#include <unistd.h>
 
-const Control CONTROL_LEFT = 'h';
-const Control CONTROL_DOWN = 'j';
-const Control CONTROL_UP = 'k';
-const Control CONTROL_RIGHT = 'l';
+const Control CONTROL_STRIDE_LEFT = 'h';
+const Control CONTROL_STRIDE_DOWN = 'j';
+const Control CONTROL_STRIDE_UP = 'k';
+const Control CONTROL_STRIDE_RIGHT = 'l';
+const Control CONTROL_STEP_LEFT = 'H';
+const Control CONTROL_STEP_DOWN = 'J';
+const Control CONTROL_STEP_UP = 'K';
+const Control CONTROL_STEP_RIGHT = 'L';
 const Control CONTROL_BUILD = 'a';
 const Control CONTROL_DESTROY = 'x';
 const Control CONTROL_EXIT = 'q';
+const Control CONTROL_STOP = ' ';
 
 void start_controls() {
-  // TODO: Start a thread that reads controls.
+  initscr();
+  cbreak();
+  noecho();
+  nodelay(stdscr, TRUE);
+  scrollok(stdscr, TRUE);
 }
 
-// TODO: Get most recent control pressed.
-Control get_control() {
-  FILE *fp = popen("read -n 1 -r -s key; echo $key", "r");
-  if (fp == NULL) {
-    exit(1);
+int kbhit() {
+  int ch = getch();
+  if (ch != ERR) {
+    ungetch(ch);
+    return 1;
   }
 
-  char c = fgetc(fp);
-  pclose(fp);
-
-  return c;
+  return 0;
 }
 
-bool is_movement_control(Control control) {
-  return control == CONTROL_LEFT || control == CONTROL_DOWN ||
-         control == CONTROL_UP || control == CONTROL_RIGHT;
+Control get_control() {
+  if (kbhit()) {
+    return getchar();
+  }
+  return 0;
 }
 
-bool is_building_control(Control control) {
+void stop_controls() {
+  nocbreak();
+  echo();
+  nodelay(stdscr, FALSE);
+  scrollok(stdscr, FALSE);
+}
+
+int is_step_control(Control control) {
+  return control == CONTROL_STEP_LEFT || control == CONTROL_STEP_DOWN ||
+         control == CONTROL_STEP_UP || control == CONTROL_STEP_RIGHT;
+}
+
+int is_stride_control(Control control) {
+  return control == CONTROL_STRIDE_LEFT || control == CONTROL_STRIDE_DOWN ||
+         control == CONTROL_STRIDE_UP || control == CONTROL_STRIDE_RIGHT;
+}
+
+int is_stop_control(Control control) { return control == CONTROL_STOP; }
+
+int is_building_control(Control control) {
   return control == CONTROL_BUILD || control == CONTROL_DESTROY;
 }
