@@ -1,0 +1,74 @@
+ADJUST_XY	vector_math.c	/^#define ADJUST_XY(set_var, delta_var)             /
+Block	block.h	/^typedef unsigned short Block;$/
+CHANGE_XY	vector_math.c	/^#define CHANGE_XY(set_var, target_var)            /
+Cell	cell.h	/^} Cell;$/
+Char	char.h	/^} Char;$/
+Color	color.h	/^typedef unsigned char Color;$/
+Control	control.h	/^typedef unsigned char Control;$/
+DATA_FILE	constants.c	/^#define DATA_FILE(x) (Filename) "\/tmp\/" #x$/
+Dim	scalar.h	/^typedef unsigned int Dim;$/
+Dim2	vector.h	/^} Dim2;$/
+EscapedColor	cell.h	/^} EscapedColor;$/
+Filename	filename.h	/^typedef char *Filename;$/
+GET_CELL	player_visual.c	/^#define GET_CELL(result_var, offset_var)          /
+Map	map.h	/^typedef Block *Map;$/
+Mmain	main.c	/^int main() {$/
+Mtest	test.c	/^int main() {$/
+Pos	scalar.h	/^typedef int Pos;$/
+Pos2	vector.h	/^} Pos2;$/
+Screen	screen.h	/^typedef Cell *Screen;$/
+Shape	shape.h	/^} Shape;$/
+adjust_pos	vector_math.c	/^void adjust_pos(Pos2 *pos, const Pos2 *delta) { AD/
+bool	bool.h	/^typedef unsigned char bool;$/
+build_map	player_building.c	/^bool build_map(Map map, const Dim2 *map_size, cons/
+change_dim	vector_math.c	/^bool change_dim(Dim2 *dim, const Dim2 *target) { C/
+change_pos	vector_math.c	/^bool change_pos(Pos2 *pos, const Pos2 *target) { C/
+control_player	player.c	/^bool control_player(Map map, const Dim2 *map_size,/
+create_empty_screen	screen.c	/^Screen create_empty_screen(const Dim2 *size) {$/
+delta_from_movement_control	control_delta.c	/^const Pos2 *delta_from_movement_control(Control co/
+destroy_game	destroy.c	/^void destroy_game(Screen screen) {$/
+destroy_screen	screen.c	/^void destroy_screen(Screen screen) { free(screen);/
+display_frame	frame.c	/^void display_frame(const Screen screen, const Dim2/
+draw_screen	terminal.c	/^void draw_screen(Screen screen) { printf(SCREEN_FO/
+get_bg_color	cell.c	/^Color get_bg_color(const Cell *cell) { return get_/
+get_color	cell.c	/^Color get_color(const EscapedColor *escaped_color)/
+get_control	control.c	/^Control get_control() {$/
+get_data_color	cell.c	/^Color get_data_color(const unsigned char *data) {$/
+get_fg_color	cell.c	/^Color get_fg_color(const Cell *cell) { return get_/
+get_map_block	map.c	/^Block get_map_block(const Map map, const Dim2 *siz/
+get_map_index	map.c	/^Dim get_map_index(const Dim2 *size, const Dim2 *po/
+get_screen_cell	screen.c	/^Cell *get_screen_cell(const Screen screen, const D/
+get_screen_index	screen.c	/^Dim get_screen_index(const Dim2 *size, const Dim2 /
+get_target_block	player_target.c	/^Block get_target_block(const Map map, const Dim2 */
+get_terminal_size	terminal.c	/^void get_terminal_size(Dim2 *size) {$/
+get_window_size	window.c	/^bool get_window_size(Dim2 *size) {$/
+init_game	init.c	/^void init_game(const Filename player_file, Pos2 *p/
+is_building_control	control.c	/^int is_building_control(Control control) {$/
+is_step_control	control.c	/^int is_step_control(Control control) {$/
+is_stop_control	control.c	/^int is_stop_control(Control control) { return cont/
+is_stride_control	control.c	/^int is_stride_control(Control control) {$/
+kbhit	control.c	/^int kbhit() {$/
+loop_game	loop.c	/^void loop_game(const Filename player_file, Pos2 *p/
+map_contains_target	player_target.c	/^bool map_contains_target(const Dim2 *map_size, con/
+offset_position	player_visual.c	/^void offset_position(Dim2 *result, const Pos2 *sou/
+read_map	map_io.c	/^void read_map(Filename filename, Map map, const Di/
+read_player	player_io.c	/^void read_player(const Filename filename, Pos2 *po/
+render_block	block_visual.c	/^void render_block(Cell *cell, Block block) {$/
+render_map	map_visual.c	/^void render_map($/
+render_player	player_visual.c	/^void render_player(Screen screen, const Dim2 *scre/
+run_game	game.c	/^void run_game() {$/
+set_bg_color	cell.c	/^void set_bg_color(Cell *cell, Color color) {$/
+set_color	cell.c	/^void set_color(EscapedColor *escaped_color, Color /
+set_cursor_visibility	terminal.c	/^void set_cursor_visibility(int visible) {$/
+set_data_color	cell.c	/^void set_data_color(unsigned char *data, Color col/
+set_fg_color	cell.c	/^void set_fg_color(Cell *cell, Color color) {$/
+set_map_block	map.c	/^void set_map_block(Map map, const Dim2 *size, cons/
+set_target_block	player_target.c	/^void set_target_block(Map map, const Dim2 *size, c/
+start_controls	control.c	/^void start_controls() {$/
+stop_controls	control.c	/^void stop_controls() {$/
+terminal_to_window	window.c	/^void terminal_to_window(Dim2 *window, const Dim2 */
+terminal_to_window_x	window.c	/^Dim terminal_to_window_x(Dim value) { return value/
+terminal_to_window_y	window.c	/^Dim terminal_to_window_y(Dim value) { return value/
+update_frame	frame.c	/^bool update_frame(const Filename player_file, Pos2/
+write_map	map_io.c	/^void write_map(Filename filename, Map map, const D/
+write_player	player_io.c	/^void write_player(const Filename filename, const P/

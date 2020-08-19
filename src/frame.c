@@ -14,6 +14,7 @@ bool update_frame(const Filename player_file, Pos2 *player_pos,
                   Dim2 *map_size, Screen *screen, Dim2 *screen_size,
                   Pos2 *offset, bool *stride, bool *should_exit) {
   Control control = get_control();
+
   if (control == CONTROL_EXIT) {
     *should_exit = true;
     return false;

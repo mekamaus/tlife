@@ -22,11 +22,11 @@ const Control CONTROL_EXIT = 'q';
 const Control CONTROL_STOP = ' ';
 
 void start_controls() {
-  initscr();
-  cbreak();
-  noecho();
-  nodelay(stdscr, TRUE);
-  scrollok(stdscr, TRUE);
+  //  initscr();
+  //  cbreak();
+  //  noecho();
+  //  nodelay(stdscr, TRUE);
+  //  scrollok(stdscr, TRUE);
 }
 
 int kbhit() {
@@ -47,10 +47,10 @@ Control get_control() {
 }
 
 void stop_controls() {
-  nocbreak();
-  echo();
-  nodelay(stdscr, FALSE);
-  scrollok(stdscr, FALSE);
+  //  nocbreak();
+  //  echo();
+  //  nodelay(stdscr, FALSE);
+  //  scrollok(stdscr, FALSE);
 }
 
 int is_step_control(Control control) {

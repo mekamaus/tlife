@@ -3,7 +3,6 @@
 #include "player_building.h"
 #include "player_target.h"
 #include "vector_math.h"
-#include <stdlib.h>
 
 bool control_player(Map map, const Dim2 *map_size, Pos2 *pos, Pos2 *delta,
                     bool *stride, Control control) {
