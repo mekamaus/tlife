@@ -22,35 +22,23 @@ const Control CONTROL_EXIT = 'q';
 const Control CONTROL_STOP = ' ';
 
 void start_controls() {
-  //  initscr();
-  //  cbreak();
-  //  noecho();
-  //  nodelay(stdscr, TRUE);
-  //  scrollok(stdscr, TRUE);
-}
-
-int kbhit() {
-  int ch = getch();
-  if (ch != ERR) {
-    ungetch(ch);
-    return 1;
-  }
-
-  return 0;
-}
-
-Control get_control() {
-  if (kbhit()) {
-    return getchar();
-  }
-  return 0;
+  initscr();
+  cbreak();
+  noecho();
+  nodelay(stdscr, TRUE);
+  scrollok(stdscr, TRUE);
 }
 
 void stop_controls() {
-  //  nocbreak();
-  //  echo();
-  //  nodelay(stdscr, FALSE);
-  //  scrollok(stdscr, FALSE);
+  nocbreak();
+  echo();
+  nodelay(stdscr, FALSE);
+  scrollok(stdscr, FALSE);
+}
+
+Control get_control() {
+  int ch = getch();
+  return ch == ERR ? 0 : ch;
 }
 
 int is_step_control(Control control) {

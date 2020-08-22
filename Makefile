@@ -4,6 +4,8 @@ CFLAGS= \
 				-Werror \
 				-Wall
 
+# here I don't feel like learning how makefiles work yet, so I'm writing a
+# bunch of stuff out the long way
 SRC= \
 	   src/main.c  \
      src/block.c \
@@ -12,7 +14,7 @@ SRC= \
 	   src/color.c \
 	   src/control.c \
 	   src/map.c \
-	   src/map_io.c \
+	   src/map_persistence.c \
 	   src/player.c \
 	   src/screen.c \
 	   src/map_visual.c \
@@ -21,7 +23,7 @@ SRC= \
 	   src/player_visual.c \
 	   src/terminal.c \
 	   src/window.c \
-	   src/player_io.c \
+	   src/player_persistence.c \
 	   src/game.c \
 	   src/constants.c \
 	   src/frame.c \
@@ -31,12 +33,11 @@ SRC= \
 	   src/loop.c \
 	   src/destroy.c \
 	   src/vector_math.c \
-	   src/control_delta.c
+	   src/control_delta.c \
+		 src/time.c
 
 APP=bin/app
 
-# here I don't feel like learning how makefiles work yet, so I'm writing a
-# bunch of commands out the long way
 run:
 	$(RM) -r bin
 	mkdir bin

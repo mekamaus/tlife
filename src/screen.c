@@ -28,3 +28,7 @@ void destroy_screen(Screen screen) { free(screen); }
 Dim get_screen_index(const Dim2 *size, const Dim2 *pos) {
   return (size->x + 1) * pos->y + pos->x;
 }
+
+Dim get_screen_bytes(const Dim2 *size) {
+  return (size->x + 1) * sizeof(Cell) * size->y;
+}

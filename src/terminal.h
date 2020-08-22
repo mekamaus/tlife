@@ -2,7 +2,7 @@
 #include "screen.h"
 
 /** Draws the screen to the terminal. */
-void draw_screen(Screen screen);
+void draw_screen(const Screen screen, const Dim2 *screen_size);
 
 /** Sets the cursor visibility. */
 void set_cursor_visibility(int visible);

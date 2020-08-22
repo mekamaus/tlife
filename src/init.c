@@ -2,8 +2,8 @@
 #include "bool.h"
 #include "constants.h"
 #include "control.h"
-#include "map_io.h"
-#include "player_io.h"
+#include "map_persistence.h"
+#include "player_persistence.h"
 #include "terminal.h"
 
 void init_game(const Filename player_file, Pos2 *player_pos, Pos2 *player_delta,

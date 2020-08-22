@@ -1,13 +1,12 @@
 #include "frame.h"
-#include "map_io.h"
+#include "map_persistence.h"
 #include "map_visual.h"
 #include "player.h"
 #include "player_building.h"
-#include "player_io.h"
+#include "player_persistence.h"
 #include "player_visual.h"
 #include "terminal.h"
 #include "window.h"
-#include <stdlib.h>
 
 bool update_frame(const Filename player_file, Pos2 *player_pos,
                   Pos2 *player_delta, const Filename map_file, Map map,
@@ -46,5 +45,5 @@ void display_frame(const Screen screen, const Dim2 *screen_size,
                    const Pos2 *player_pos, const Pos2 *player_delta) {
   render_map(screen, screen_size, offset, map, map_size);
   render_player(screen, screen_size, offset, player_pos, player_delta);
-  draw_screen(screen);
+  draw_screen(screen, screen_size);
 }
