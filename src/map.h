@@ -1,13 +1,26 @@
 #pragma once
 
 #include "block.h"
+#include "output.h"
+#include "persistence.h"
 #include "vector.h"
+#include <vector>
 
-/** A collection of blocks in a grid arrangement. */
-typedef Block *Map;
+/** Block grid map. */
+class Map {
+public:
+  Map(Dim width, Dim height);
 
-/** Returns the block at the given row and column. */
-Block get_map_block(const Map map, const Dim2 *size, const Dim2 *pos);
+  Block &operator[](const Pos2 &pos);
+  const Block &operator[](const Pos2 &pos) const;
+  friend Persistence &operator<<(Persistence &persistence, const Map &map);
+  friend Persistence &operator>>(Persistence &persistence, Map &map);
+  friend std::ostream &operator<<(std::ostream &out, const Map &map);
+  friend std::istream &operator>>(std::istream &in, Map &map);
+  friend Output &operator<<(Output &out, const Map &map);
 
-/** Sets the block at the given row and column. */
-void set_map_block(Map map, const Dim2 *size, const Dim2 *pos, Block value);
+private:
+  const Vector2<Dim> size_;
+  std::vector<Block> blocks_;
+  Block dummy_;
+};

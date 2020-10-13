@@ -1,11 +1,26 @@
 #pragma once
 
-#include "filename.h"
-#include "map.h"
-#include "screen.h"
-#include "vector.h"
+#include "clock.h"
+#include "game.h"
+#include "input.h"
+#include "output.h"
+#include "persistence.h"
+#include "terminal.h"
 
-// Loops the game until it is ready to terminate.
-void loop_game(const Filename player_file, Pos2 *player_pos, Pos2 *player_delta,
-               const Filename map_file, Map map, Dim2 *map_size, Screen *screen,
-               Dim2 *screen_size);
+class Loop {
+public:
+  Loop(Game &game, Input &input, Output &output, Persistence &persistence)
+      : game_(&game), input_(&input), output_(&output),
+        persistence_(&persistence) {}
+
+  /** Runs the loop until exit. */
+  void Run();
+
+private:
+  Clock *clock_;
+  Terminal *terminal_;
+  Game *game_;
+  Input *input_;
+  Output *output_;
+  Persistence *persistence_;
+};

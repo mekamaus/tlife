@@ -1,11 +1,16 @@
 #pragma once
 
-#include "char.h"
+class Shape {
+public:
+  Shape(unsigned char a, unsigned char b, unsigned char c, unsigned char d,
+        unsigned char e, unsigned char f)
+      : chars_{a, b, c, d, e, f} {}
 
-typedef struct Shape {
-  Char a;
-  Char b;
-} Shape;
+  operator const unsigned char *() const { return chars_; }
+
+private:
+  unsigned char chars_[6];
+};
 
 // 
 extern const Shape PLAYER_HEAD;

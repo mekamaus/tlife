@@ -1,15 +1,32 @@
 #pragma once
 
 #include "cell.h"
+#include "center.h"
+#include "terminal.h"
 #include "vector.h"
+#include <vector>
 
-typedef Cell *Screen;
+/** Screen state. */
+class Screen {
+public:
+  Screen();
+  Screen(const Screen &) = delete;
+  Screen &operator=(const Screen &) = delete;
 
-Cell *get_screen_cell(const Screen screen, const Dim2 *size, const Dim2 *pos);
+  Cell &operator[](const Dim2 &pos);
 
-Screen create_empty_screen(const Dim2 *size);
+  friend Terminal &operator<<(Terminal &terminal, const Screen &screen);
+  friend Terminal &operator>>(Terminal &terminal, Screen &screen);
 
-void destroy_screen(Screen screen);
+  void GetCenterOffset(const Center &center, Pos2 *offset);
 
-/** Gets the number of bytes in a screen with the given size. */
-Dim get_screen_bytes(const Dim2 *size);
+private:
+  /** Gets the number of cells in screen data. */
+  Dim GetLength() const;
+
+  /** Gets the index of the cell at a position. */
+  Dim GetCellIndex(const Dim2 &pos) const;
+
+  std::vector<Cell> cells_;
+  Vector2<Dim> size_;
+};

@@ -1,3 +1,3 @@
 #pragma once
 
-typedef char *Filename;
+typedef const char *Filename;
